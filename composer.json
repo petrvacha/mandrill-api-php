@@ -1,12 +1,14 @@
 {
-    "name": "mandrill/mandrill",
+    "name": "petrvacha/mandrill-api-php-ssl",
     "type": "library",
-    "version": "1.0.55",
-    "description": "API client library for the Mandrill email as a service platform",
-    "keywords": ["email", "api"],
-    "homepage": "https://bitbucket.org/mailchimp/mandrill-api-php",
+    "version": "1.1",
+    "description": "API client library for the Mandrill email as a service platform. This fork supports a SSL verification.",
+    "keywords": ["email", "api", "mandrill", "ssl"],
+    "homepage": "https://github.com/petrvacha/mandrill-api-php-ssl",
     "license": "Apache-2.0",
-    "authors": [{"name": "Mandrill Devs", "email": "community@mandrill.com", "homepage": "http://mandrill.com", "role": "Developer"}],
+    "authors": [
+	    {"name": "Mandrill Devs", "email": "community@mandrill.com", "homepage": "http://mandrill.com", "role": "Developer"},
+	    {"name": "Petr Vacha", "homepage": "https://petrvacha.com", "role": "Developer"}],
     "require": {
         "php": ">=5.2.0"
     },
