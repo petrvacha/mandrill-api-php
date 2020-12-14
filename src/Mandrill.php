@@ -56,9 +56,8 @@ class Mandrill {
         "Unknown_MetadataField" => "Mandrill_Unknown_MetadataField"
     );
 
-    public function __construct($apikey=null) {
-        if(!$apikey) $apikey = getenv('MANDRILL_APIKEY');
-        if(!$apikey) $apikey = $this->readConfigs();
+    public function __construct($apikey, $absolutePathToCaCert = null) {
+
         if(!$apikey) throw new Mandrill_Error('You must provide a Mandrill API key');
         $this->apikey = $apikey;
 
@@ -70,6 +69,12 @@ class Mandrill {
         curl_setopt($this->ch, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($this->ch, CURLOPT_CONNECTTIMEOUT, 30);
         curl_setopt($this->ch, CURLOPT_TIMEOUT, 600);
+
+        if ($absolutePathToCaCert) {
+            curl_setopt($this->ch, CURLOPT_SSL_VERIFYHOST, 2);
+            curl_setopt($this->ch, CURLOPT_SSL_VERIFYPEER, 1);
+            curl_setopt($this->ch, CURLOPT_CAINFO, $absolutePathToCaCert);
+        }
 
         $this->root = rtrim($this->root, '/') . '/';
 
@@ -133,17 +138,6 @@ class Mandrill {
         }
 
         return $result;
-    }
-
-    public function readConfigs() {
-        $paths = array('~/.mandrill.key', '/etc/mandrill.key');
-        foreach($paths as $path) {
-            if(file_exists($path)) {
-                $apikey = trim(file_get_contents($path));
-                if($apikey) return $apikey;
-            }
-        }
-        return false;
     }
 
     public function castError($result) {
